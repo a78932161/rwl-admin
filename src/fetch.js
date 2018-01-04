@@ -6,11 +6,13 @@ import {Loading, Message} from 'element-ui'
 
 var  loadinginstace;
 let baseURL='https://www.embracex.com';
+let URL='https://www.embracex.com/gcsweixin/shop';
+
 let config={
-  loginUrl:'http://localhost:8090/login',  /*登陆地址*/
+  loginUrl:`${URL}/login`,  /*登陆地址*/
   loginApi:`${baseURL}/gcsweixin/shop/login`,    /*登陆API*/
   logoutApi:`${baseURL}/logout`,  /*退出API*/
-  indexUrl:'http://localhost:8090/home' /*首页*/
+  indexUrl:`${URL}/home` /*首页*/
 };
 const service = axios.create({
   baseURL, // api的base_url
