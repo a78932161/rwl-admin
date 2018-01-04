@@ -28,8 +28,8 @@
             action="https://www.embracex.com/gcsweixin/shop/product/uploadimg/"
             list-type="picture-card"
             :limit="5"
-            :on-exceed="handleExceed"
-            :on-change="handlechange"
+            :on-exceed="handleExcee"
+            :on-success="handlechange"
             :on-preview="handlePictureCardPreview"
             :on-remove="handleRemove"
             :before-upload="beforeAvatarUpload">
@@ -62,6 +62,9 @@
         <el-form-item label="商品排序  :" style="width: 200%" prop="sort">
           <el-input v-model="OaddForm.sort" style="width: 36%" placeholder="商品顺序权重"></el-input>
           <label style="margin: 0 0 0 15px;color: red">必须是整数，不传默认为o，权重数字越大越靠前</label>
+        </el-form-item>
+        <el-form-item label="商家名称 :" style="width: 94%" prop="seller">
+          <el-input v-model="OaddForm.seller" placeholder="请输入商家名称"></el-input>
         </el-form-item>
         <el-form-item style="margin: 50px 0 0 0">
           <el-button style="margin: 0 50px 0 0;" type="primary" @click="submitForm()">保存</el-button>
@@ -103,7 +106,7 @@
         }
       };
       let sort = (rule, value, callback) => {
-        if (/^[1-9]\d*$/.test(value)===false ) {
+        if (/^[0-9]\d*$/.test(value)===false ) {
           callback(new Error('必须是正整数'));
         }else if(value>9999999){
           callback(new Error('不能超过9999'));
@@ -119,6 +122,7 @@
         dialogImageUrl:'',
         dialogVisible: false,
         tijiao:{},
+        imgg:[],
         OaddForm: {
           name: '',
           old_price: '',
@@ -132,6 +136,7 @@
           sort:'',
           status: 1,
           type: 1,
+          seller:''
 
         },
         rules: {
@@ -164,6 +169,10 @@
           sort:[
             {validator:sort,trigger: 'blur' }
           ],
+          seller:[
+            {required: true, message: '请输入商家', trigger: 'blur'},
+            {min: 1, max: 20, message: '长度在 1 到 20 个字符', trigger: 'blur'},
+          ]
         },
       };
     },
@@ -174,16 +183,16 @@
           this.OaddForm.stock = 9999999;
         }
         if (this.OaddForm.sort === '') {
-          this.OaddForm.sort ='0';
+          this.OaddForm.sort =0;
         }
         if(this.OaddForm.name!=''&&this.OaddForm.old_price!=''&&this.OaddForm.price!=''
-          &&this.OaddForm.date!=''&&this.OaddForm.heading!=''&&this.OaddForm.description!=''){
+          &&this.OaddForm.date!=''&&this.OaddForm.heading!=''&&this.OaddForm.description!=''&&this.OaddForm.seller!=''){
           this.tijiao={
             'name': this.OaddForm.name,
             'old_price': this.OaddForm.old_price,
             'price': this.OaddForm.price,
             'logo': this.OaddForm.logo,
-            'image': this.OaddForm.image,
+            'image': this.imgg.toString(),
             'date': this.OaddForm.date.getTime(),
             'heading': this.OaddForm.heading,
             'description': this.OaddForm.description,
@@ -214,11 +223,16 @@
         this.$router.push({path: '/gobject'});
       },
       handleRemove(file, fileList) {
-        this.OaddForm.image='';
-        fileList.forEach(value=>{
-          this.OaddForm.image+=value.response +","
-        })
-        console.log(this.OaddForm.image);
+
+          Array.prototype.remove = function(val) {
+            let index = this.indexOf(val);
+            if (index > -1) {
+              this.splice(index, 1);
+            }
+          };
+          this.imgg.remove(file);
+
+        console.log(this.imgg);
       },
       handlePictureCardPreview(file) {
         this.dialogImageUrl = file.url;
@@ -241,13 +255,12 @@
         return isJPG && isLt2M;
       },
       handlechange(file, fileList){
-        this.OaddForm.image='';
-        fileList.forEach(value=>{
-          this.OaddForm.image+=value.response +","
-        })
-        console.log(this.OaddForm.image);
+
+          this.imgg.push(file)
+
+        console.log(this.imgg);
       },
-      handleExceed(files, fileList) {
+      handleExcee(files, fileList) {
         this.$message.warning(`当前限制选择 5 个文件，本次选择了 ${files.length} 个文件，共选择了 ${files.length + fileList.length} 个文件`);
       },
     },

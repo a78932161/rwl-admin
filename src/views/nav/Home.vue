@@ -46,7 +46,6 @@
   import {removeToken} from '@/auth'
   import ElButton from "../../../node_modules/element-ui/packages/button/src/button";
   export default{
-    components: {ElButton},
     data(){
           return{
             NavMenu:false,
@@ -55,6 +54,7 @@
 
           }
       },
+    components: {ElButton},
 
     methods:{
       NavMenuok() {

@@ -32,7 +32,7 @@
         本月
       </div>
       <el-button type="warning" style="width: 99px;height: 34px" @click="getordero()">统计</el-button>
-      <el-button type="primary" style="width: 99px;height: 34px" @click="handleDownload()">导出</el-button>
+      <el-button type="primary" style="width: 99px;height: 34px" @click="excel()">导出</el-button>
     </el-col>
     <el-col :span="24" style="padding: 0 0 50px 0 ">
       <el-table
@@ -58,7 +58,7 @@
                 <span>{{ props.row.phone }}</span>
               </el-form-item>
               <el-form-item label="商品 :">
-                <span>{{ props.row.address }}</span>
+                <span>{{ props.row.updateactorid}}</span>
               </el-form-item>
               <el-form-item style="display: flex; justify-content:center;width:100%">
                 <el-button type="primary">查看详情</el-button>
@@ -147,7 +147,6 @@
       tableRowClassName() {
         return 'table1';
       },
-
       getordero(){
         this.axios({
           method: 'post',
@@ -157,7 +156,7 @@
 
           }
         }).then((res) => {
-            //console.log(res);
+          console.log(res);
           this.order=[];
           this.orderpage=[];
           res.data.forEach(value => {
@@ -168,21 +167,11 @@
               value.orderStatus = '未完结';
             }
             value.amount = Number(value.amount) / 100;
-
-//            for (let j = 0; j < value.orderItems.length; j++) {
-//              console.log(1)
-//              console.log(value.orderStatus[j])
-//              console.log(value.orderStatus[j].product['id'])
-//              this.axios({
-//                method: 'post',
-//                url: '/gcsweixin/shop/order/findbyproducttype',
-//                params: {
-//                  id: value.orderStatus[j].product['id']
-//                }
-//              }).then((res) => {
-//                this.goods.push(res.name + '*' + value.orderStatus[j].count)
-//              })
-//            value.orderItems = this.goods.toString()
+            this.goods=[];
+            for (let j = 0; j < value.items.length; j++) {
+              this.goods.push(value.items[j].product['name'] + '*' + value.items[j].count)
+              value.updateactorid= this.goods.toString();
+            }
 
             if(this.value1===null||this.value1===''){
               value.createtime=this.getLocalTime(value.createtime);
@@ -195,22 +184,23 @@
 
           });
 
-          this.totalpages=this.orderpage.length;
-            let arr=this.orderpage;
-            let currentArr=[];
-            let page=this.size;
-            let currentPage=this.page;
-            let StartNum=(currentPage-1)*page;
-            let EndNum=currentPage*page;
-            for(let i = StartNum;i<EndNum;i++){
-              if(!arr[i]){
-                break;
-              }
-              currentArr.push(arr[i]);
 
+          this.totalpages=this.orderpage.length;
+          let arr=this.orderpage;
+          let currentArr=[];
+          let page=this.size;
+          let currentPage=this.page;
+          let StartNum=(currentPage-1)*page;
+          let EndNum=currentPage*page;
+          for(let i = StartNum;i<EndNum;i++){
+            if(!arr[i]){
+              break;
             }
-            //console.log(currentArr);
-            this.order=currentArr;
+            currentArr.push(arr[i]);
+
+          }
+          //console.log(currentArr);
+          this.order=currentArr;
         })
       },
       handleSizeChange(val) {
@@ -223,26 +213,18 @@
         this.page = val;
         this.getordero();
       },
-      handleDownload() {
-        require.ensure([], () => {
-          const { export_json_to_excel } = require('@/vendor/Export2Excel');
-          const tHeader = ['订单编号', '用户名', '下单时间', '收获地址', '订单金额', '联系电话', '商品','状态']
-          const filterVal = ['id','name', 'createtime', 'address', 'amount', 'phone', 'address','selection']
-          const list = this.order
-          const data = this.formatJson(filterVal, list)
-          export_json_to_excel(tHeader, data, '服务类订单')
-        })
-      },
-      formatJson(filterVal, jsonData) {
-        return jsonData.map(v => filterVal.map(j => v[j]))
+      excel(){
+        location.href='https://www.embracex.com/gcsweixin/shop/order/exportorder';
       },
       tongji(){
-          //console.log(this.value1[0].getTime());
+        this.axios({
+          method: 'post',
+          url: '/gcsweixin/shop/order/exportorder',
+        }).then((res)=>{
+          console.log(res)
+        });
 
-          //console.log(this.getLocalTime(1513938490383))
-          console.log(this.getLocalTime(this.value1[0].getTime()) <this.getLocalTime(this.value1[1].getTime()) );
-
-      }
+      },
     },
     mounted(){
       this.getordero();

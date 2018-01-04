@@ -121,6 +121,7 @@
         dialogVisible: false,
         imgers: [],
         imgay:[],
+        imgg:[],
         fileList: [],
         tijiao: {},
         goodsup: {},
@@ -172,15 +173,19 @@
           this.goodsup = res.data;
           this.fileList = this.tpjq(this.goodsup.image);
           let img=this.goodsup.image;
-          let imgjq = img.substring(0,img.length-1);
+          let imgjq = img.substring(0,img.length);
           let imgs = imgjq.split(',');
           this.imgay=imgs;
-          console.log(this.imgay.toString());
+          console.log(this.imgay)
         })
 
       },
       submitForm() {
 
+        if(this.imgay.remove('')){
+          console.log('1');
+          this.imgay.remove('');
+        }
 
         if (this.goodsup.stock === '') {
           this.goodsup.stock = 9999999;
@@ -226,8 +231,10 @@
       },
 
       resetForm(formName) {
-        this.$refs[formName].resetFields();
+
         this.$router.push({path: '/gobject'});
+
+
       },
 
       handlePictureCardPreview(file) {
@@ -257,15 +264,17 @@
             this.splice(index, 1);
           }
         };
-        console.log(file.response);
-        console.log(file.url);
-        if(file.url===undefined||file.url===''||file.url===null){
-          this.imgay.remove(file.response);
-        }
-        else if(file.response===undefined||file.response===''||file.response===null){
+
+        if(file.response===undefined && file.url!==''){
           this.imgay.remove(file.url);
         }
-        console.log(this.imgay)
+        else{
+          this.imgay.remove(file.response);
+        }
+        console.log(this.imgay);
+        console.log(this.goodsup.image);
+
+        //console.log(this.imgay.toString());
       },
       handlesuccess(file, fileList){
         //console.log(file);
@@ -278,7 +287,7 @@
       },
       tpjq(qaq) {
         let img = qaq;
-        let imgjq = img.substring(0, img.length - 1);
+        let imgjq = img.substring(0, img.length);
         let imgs = imgjq.split(',');
         let geshi = [];
 
@@ -292,6 +301,7 @@
         for (let i = 0; i < imgs.length; i++) {
           images.push({name: i + 1 + '.' + geshi[i], url: imgs[i]})
         }
+
         return images;
       },
     },

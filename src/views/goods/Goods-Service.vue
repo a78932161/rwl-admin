@@ -75,15 +75,16 @@
           <template slot-scope="scope">
             <el-button
               type="primary"
-              v-if="scope.row.status===1"
+              v-if="scope.row.status===0"
               size="mini"
-              @click="xiajia(scope.row)">下架
+
+              @click="shangjia(scope.row)">下架
             </el-button>
             <el-button
               type="primary"
-              v-if="scope.row.status===0"
+              v-if="scope.row.status===1"
               size="mini"
-              @click="shangjia(scope.row)">上架
+              @click="xiajia(scope.row)">上架
             </el-button>
 
             <el-button
