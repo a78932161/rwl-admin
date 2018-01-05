@@ -54,9 +54,10 @@
           method: "post",
           data:{ username: 'user',password:'user'}
         }).then(res=>{
-           console.log(localStorage.token);
+           //console.log(localStorage.token);
            if(res.status===200){
               setToken(res.headers['x-auth-token'])
+
            }
 
         });

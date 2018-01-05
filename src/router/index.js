@@ -23,20 +23,18 @@ Vue.use(Router)
 
 
 export default new Router({
-  mode: 'history',
+  // mode: 'history',
   routes: [
-
     {
       path:'/',
       name:'',
-      redirect:'login'
+      redirect:'home'
 
     },
     {
       path: '/login',
       name: 'login',
-      component: resolve => require(['@/views/Login.vue'], resolve),
-      meta: { noCheckSession: true }
+      component: login
     },
 
     {
@@ -49,9 +47,6 @@ export default new Router({
       path: '/home',
       name: 'home',
       component: home,
-      meta: {
-        requireAuth: true,  // 添加该字段，表示进入这个路由是需要登录的
-      },
       children:[
         {
           path: '/statistics',

@@ -6,8 +6,8 @@ import {Loading, Message} from 'element-ui'
 
 var  loadinginstace;
 let baseURL='https://www.embracex.com';
-let URL='https://www.embracex.com/gcsweixin/shop';
-
+let URL=window.location.origin;
+console.log(URL);
 let config={
   loginUrl:`${URL}/login`,  /*登陆地址*/
   loginApi:`${baseURL}/gcsweixin/shop/login`,    /*登陆API*/
@@ -16,7 +16,7 @@ let config={
 };
 const service = axios.create({
   baseURL, // api的base_url
-  //timeout: 15000,                  // 请求超时时间*/
+  timeout: 15000,                  // 请求超时时间*/
   withCredentials: true
 });
 
