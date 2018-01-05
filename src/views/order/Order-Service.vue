@@ -158,10 +158,10 @@
             producttype: 2
           }
         }).then((res) => {
-          //console.log(res.data);
+          //console.log(res.data.data);
           this.order = [];
           this.orderpage = [];
-          res.data.forEach(value => {
+          res.data.data.forEach(value => {
 
             if (value.orderStatus === 1) {
               value.orderStatus = '完结';

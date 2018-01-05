@@ -166,11 +166,11 @@
           method: 'post',
           url: '/gcsweixin/shop/product/getproduct',
           params: {
-            id: this.oupid
+            productid: this.oupid
           }
         }).then((res) => {
-          console.log(res.data);
-          this.goodsup = res.data;
+          console.log(res);
+          this.goodsup = res.data.data;
           this.fileList = this.tpjq(this.goodsup.image);
           let img=this.goodsup.image;
           let imgjq = img.substring(0,img.length);
@@ -183,7 +183,6 @@
       submitForm() {
 
         if(this.imgay.remove('')){
-          console.log('1');
           this.imgay.remove('');
         }
 
@@ -242,8 +241,8 @@
         this.dialogVisible = true;
       },
       handleAvatarSuccess(response) {
-        this.goodsup.logo = response;
-        console.log(this.goodsup.logo)
+        this.goodsup.logo = response.data;
+
       },
       beforeAvatarUpload(file) {
         const isJPG = file.type === 'image/jpeg';
@@ -269,16 +268,14 @@
           this.imgay.remove(file.url);
         }
         else{
-          this.imgay.remove(file.response);
+          this.imgay.remove(file.response.data);
         }
-        console.log(this.imgay);
-        console.log(this.goodsup.image);
 
         //console.log(this.imgay.toString());
       },
       handlesuccess(file, fileList){
         //console.log(file);
-        this.imgay.push(file)
+        this.imgay.push(file.data)
         console.log(this.imgay)
       },
 

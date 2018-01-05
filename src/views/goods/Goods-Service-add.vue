@@ -229,7 +229,7 @@
             this.splice(index, 1);
           }
         };
-        this.imgg.remove(file);
+        this.imgg.remove(file.response.data);
 
         console.log(this.imgg);
       },
@@ -238,8 +238,7 @@
         this.dialogVisible = true;
       },
       handleAvatarSuccess(response) {
-        this.SaddForm.logo=response;
-        console.log(this.SaddForm.logo)
+        this.SaddForm.logo=response.data;
       },
       beforeAvatarUpload(file) {
         const isJPG = file.type === 'image/jpeg';
@@ -255,7 +254,7 @@
       },
       handlechange(file, fileList){
 
-        this.imgg.push(file)
+        this.imgg.push(file.data)
 
         console.log(this.imgg);
       },

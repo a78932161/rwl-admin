@@ -181,8 +181,8 @@
         return arr;
       },
       handleEdit(index, row) {
-        console.log(index, row);
-        this.$router.push({name: 'goupdata', params: row});
+        // console.log(index, row);
+         this.$router.push({name: 'goupdata', params: row});
       },
       handleDelete(index, row) {
         console.log(index, row);
@@ -198,7 +198,7 @@
             type: 1,
           }
         }).then((res) => {
-          this.goodspx = this.mppx(res.data);
+          this.goodspx = this.mppx(res.data.data);
           this.goods = [];
           this.goodspage = [];
 
@@ -211,7 +211,6 @@
               value.date = this.getLocalTime(value.date);
               this.goodspage.push(value);
             }
-
 
           });
 

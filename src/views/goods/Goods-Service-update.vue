@@ -121,6 +121,7 @@
         dialogVisible: false,
         imgers: [],
         imgay:[],
+        imgg:[],
         fileList: [],
         tijiao: {},
         goodsup: {},
@@ -165,11 +166,11 @@
           method: 'post',
           url: '/gcsweixin/shop/product/getproduct',
           params: {
-            id: this.oupid
+            productid: this.oupid
           }
         }).then((res) => {
-          console.log(res.data);
-          this.goodsup = res.data;
+          console.log(res);
+          this.goodsup = res.data.data;
           this.fileList = this.tpjq(this.goodsup.image);
           let img=this.goodsup.image;
           let imgjq = img.substring(0,img.length);
@@ -180,6 +181,7 @@
 
       },
       submitForm() {
+
         if(this.imgay.remove('')){
           this.imgay.remove('');
         }
@@ -214,7 +216,7 @@
             },
             data: this.tijiao
           }).then((res) => {
-             this.$router.push({path: '/gservice'});
+            this.$router.push({path: '/gservice'});
             this.$message({
               message: '恭喜你修改成功',
               type: 'success'
@@ -228,7 +230,9 @@
       },
 
       resetForm(formName) {
-         this.$router.push({path: '/gservice'});
+
+        this.$router.push({path: '/gservice'});
+
 
       },
 
@@ -237,8 +241,8 @@
         this.dialogVisible = true;
       },
       handleAvatarSuccess(response) {
-        this.goodsup.logo = response;
-        console.log(this.goodsup.logo)
+        this.goodsup.logo = response.data;
+
       },
       beforeAvatarUpload(file) {
         const isJPG = file.type === 'image/jpeg';
@@ -264,15 +268,15 @@
           this.imgay.remove(file.url);
         }
         else{
-          this.imgay.remove(file.response);
+          this.imgay.remove(file.response.data);
         }
 
-
+        //console.log(this.imgay.toString());
       },
       handlesuccess(file, fileList){
-
-        this.imgay.push(file)
-
+        //console.log(file);
+        this.imgay.push(file.data)
+        console.log(this.imgay)
       },
 
       handleExceed(files, fileList) {

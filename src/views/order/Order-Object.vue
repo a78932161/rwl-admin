@@ -156,10 +156,10 @@
 
           }
         }).then((res) => {
-          console.log(res);
+          //console.log(res);
           this.order=[];
           this.orderpage=[];
-          res.data.forEach(value => {
+          res.data.data.forEach(value => {
             if (value.orderStatus === 1) {
               value.orderStatus = '完结';
             }

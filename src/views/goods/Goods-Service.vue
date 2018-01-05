@@ -199,12 +199,12 @@
             type: 2,
           }
         }).then((res) => {
-          this.goodspx = this.mppx(res.data);
+          //console.log(res.data.data);
+          this.goodspx = this.mppx(res.data.data);
           this.goods = [];
           this.goodspage = [];
-          this.totalpages = res.data.length;
+          this.totalpages = res.data.data.length;
           this.goodspx.forEach(value => {
-
 
             if(this.value1===null||this.value1===''){
               value.date = this.getLocalTime(value.date);

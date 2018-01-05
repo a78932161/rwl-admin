@@ -223,24 +223,24 @@
         this.$router.push({path: '/gobject'});
       },
       handleRemove(file, fileList) {
-
           Array.prototype.remove = function(val) {
             let index = this.indexOf(val);
             if (index > -1) {
               this.splice(index, 1);
             }
           };
-          this.imgg.remove(file);
+          this.imgg.remove(file.response.data);
 
-        console.log(this.imgg);
+
       },
       handlePictureCardPreview(file) {
         this.dialogImageUrl = file.url;
         this.dialogVisible = true;
       },
       handleAvatarSuccess(response) {
-        this.OaddForm.logo=response;
-        console.log(this.OaddForm.logo)
+
+        this.OaddForm.logo=response.data;
+
       },
       beforeAvatarUpload(file) {
         const isJPG = file.type === 'image/jpeg';
@@ -255,8 +255,7 @@
         return isJPG && isLt2M;
       },
       handlechange(file, fileList){
-
-          this.imgg.push(file)
+          this.imgg.push(file.data)
 
         console.log(this.imgg);
       },
