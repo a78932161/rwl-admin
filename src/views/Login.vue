@@ -1,64 +1,52 @@
 <template>
-  <el-form :model="ruleForm2" :rules="rules2" ref="ruleForm2" label-position="left" label-width="0px" class="demo-ruleForm login-container">
+  <el-form :model="ruleForm2" :rules="rules2" ref="ruleForm2" class="demo-ruleForm login-container">
     <h3 class="title">系统登录</h3>
-    <el-form-item prop="account">
-      <el-input type="text" v-model="ruleForm2.username" auto-complete="off" placeholder="账号"></el-input>
+    <el-form-item prop="user">
+      <el-input type="text" v-model="ruleForm2.username"  placeholder="账号" auto-complete="off"></el-input>
     </el-form-item>
-    <el-form-item prop="checkPass">
-      <el-input type="password" v-model="ruleForm2.password" auto-complete="off" placeholder="密码"></el-input>
+    <el-form-item prop="psd">
+      <el-input type="password" v-model="ruleForm2.password" placeholder="密码" auto-complete="off"></el-input>
     </el-form-item>
-    <el-checkbox v-model="checked" checked class="remember">记住密码</el-checkbox>
     <el-form-item style="width:100%;">
-      <el-button type="primary" style="width:100%;" @click="handleSubmit2" :loading="logining">登录</el-button>
-      <!--<el-button @click.native.prevent="handleReset2">重置</el-button>-->
+      <el-button type="primary" style="width:100%;" @click="handleSubmit2">登录</el-button>
     </el-form-item>
   </el-form>
 </template>
 
 <script>
-  import axios from '../fetch'
   import {setToken,getToken} from '../auth'
 
   export default {
     data() {
       return {
-        logining: false,
         ruleForm2: {
           username: 'user',
           password: 'user'
         },
         rules2: {
-          account: [
+          user: [
             { required: true, message: '请输入账号', trigger: 'blur' },
-            //{ validator: validaePass }
           ],
-          checkPass: [
+          psd: [
             { required: true, message: '请输入密码', trigger: 'blur' },
-            //{ validator: validaePass2 }
           ]
         },
-        checked: true
+
       };
     },
-    created(){
-        //console.log(getToken())
-    },
     methods: {
-      handleReset2() {
-        this.$refs.ruleForm2.resetFields();
-      },
+
       handleSubmit2() {
-        axios({
-          url: "/shop/login",
+       this.axios({
+          url: "http://rtest.rwlai.cn/shop/shop/login",
           headers: {'Content-Type': 'application/x-www-form-urlencoded'},
           method: "post",
-          data:{ username: 'user',password:'user'}
+          data:{ username: this.ruleForm2.username,password:this.ruleForm2.password}
         }).then(res=>{
            console.log(res);
            if(res.status===200){
               setToken(res.headers['x-auth-token'])
            }
-
         });
 
       }
@@ -85,8 +73,6 @@
     text-align: center;
     color: #505458;
   }
-  .remember {
-    margin: 0px 0px 35px 0px;
-  }
+
 
 </style>

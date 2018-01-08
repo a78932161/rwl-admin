@@ -10,10 +10,10 @@ let URL=window.location.origin;
 
 
 let config={
-  loginUrl:`${URL}/login`,  /*登陆地址*/
+  loginUrl:`${URL}/#/login`,  /*登陆地址*/
   loginApi:`${baseURL}/shop/login`,    /*登陆API*/
   logoutApi:`${baseURL}/logout`,  /*退出API*/
-  indexUrl:`${URL}/home` /*首页*/
+  indexUrl:`${URL}/#/home` /*首页*/
 };
 const service = axios.create({
   baseURL, // api的base_url
@@ -61,7 +61,6 @@ service.interceptors.response.use(
 
       }
       else{
-
         location.href=config.indexUrl;
       }
     }
@@ -76,7 +75,10 @@ service.interceptors.response.use(
     if (errcode.indexOf('401') > 0) {
       if (location.href === config.loginUrl) {    /*登陆页面401错误，提示用户名或者密码错误*/
 
-        alert('用户名或者密码错误');/*自行修改*/
+        loadinginstace.close();
+        Message.error({
+          message: '账号或密码错误'
+        })
 
 
       }
@@ -87,12 +89,17 @@ service.interceptors.response.use(
       }
     }
     else if (errcode.indexOf('403') > 0) {      /*403权限不足，提示用户*/
-      alert('权限不足');/*自行修改*/
+      loadinginstace.close();
+      Message.error({
+        message: '对不起,权限不足'
+      })
+    }else {
+      loadinginstace.close();
+      Message.error({
+        message: '加载失败'
+      })
     }
-    loadinginstace.close();
-    Message.error({
-      message: '加载失败'
-    })
+
     return Promise.reject(error)
   }
 );

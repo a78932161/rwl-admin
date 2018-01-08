@@ -214,7 +214,7 @@
         this.getordero();
       },
       excel(){
-        location.href='https://www.embracex.com /shop/order/exportorder';
+        location.href='https://www.embracex.com/shop/order/exportorder';
       },
       tongji(){
         this.axios({
