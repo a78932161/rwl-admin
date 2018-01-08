@@ -153,7 +153,7 @@
       getorders(){
         this.axios({
           method: 'post',
-          url: '/gcsweixin/shop/order/findbyproducttype',
+          url: '/shop/order/findbyproducttype',
           params: {
             producttype: 2
           }
@@ -228,7 +228,7 @@
       //   return jsonData.map(v => filterVal.map(j => v[j]))
       // },
       excel(){
-        location.href='https://www.embracex.com/gcsweixin/shop/order/exportorder';
+        location.href='https://www.embracex.com /shop/order/exportorder';
       }
     },
     mounted(){

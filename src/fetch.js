@@ -5,12 +5,13 @@ import {Loading, Message} from 'element-ui'
 /*import store from '../store'*/
 
 var  loadinginstace;
-let baseURL='https://www.embracex.com';
+let baseURL='http://rtest.rwlai.cn/shop';
 let URL=window.location.origin;
-console.log(URL);
+
+
 let config={
   loginUrl:`${URL}/login`,  /*登陆地址*/
-  loginApi:`${baseURL}/gcsweixin/shop/login`,    /*登陆API*/
+  loginApi:`${baseURL}/shop/login`,    /*登陆API*/
   logoutApi:`${baseURL}/logout`,  /*退出API*/
   indexUrl:`${URL}/home` /*首页*/
 };

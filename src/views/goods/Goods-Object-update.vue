@@ -15,7 +15,7 @@
         <el-form-item label="商品首页图 :">
           <el-upload
             class="avatar-uploader"
-            action="https://www.embracex.com/gcsweixin/shop/product/uploadimg/"
+            action="http://rtest.rwlai.cn/shop/shop/product/uploadimg/"
             :show-file-list="false"
             :on-success="handleAvatarSuccess"
             :before-upload="beforeAvatarUpload">
@@ -25,7 +25,7 @@
         </el-form-item>
         <el-form-item label="商品详情图 :" style="width: 200%">
           <el-upload
-            action="https://www.embracex.com/gcsweixin/shop/product/uploadimg/"
+            action="http://rtest.rwlai.cn/shop/shop/product/uploadimg/"
             list-type="picture-card"
             :file-list="fileList"
             :limit="5"
@@ -164,7 +164,7 @@
         this.oupid = this.$route.params.id
         this.axios({
           method: 'post',
-          url: '/gcsweixin/shop/product/getproduct',
+          url: '/shop/product/getproduct',
           params: {
             productid: this.oupid
           }
@@ -210,7 +210,7 @@
           };
           this.axios({
             method: 'post',
-            url: '/gcsweixin/shop/product/update',
+            url: '/shop/product/update',
             params: {
               productid: this.oupid
             },

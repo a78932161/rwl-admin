@@ -194,7 +194,7 @@
       getgoods(){
         this.axios({
           method: 'post',
-          url: '/gcsweixin/shop/product/findbytype',
+          url: '/shop/product/findbytype',
           params: {
             type: 2,
           }
@@ -270,7 +270,7 @@
         };
         this.axios({
           method: 'post',
-          url: '/gcsweixin/shop/product/update',
+          url: '/shop/product/update',
           params: {
             productid: this.goodsup.id
           },
@@ -303,7 +303,7 @@
         };
         this.axios({
           method: 'post',
-          url: '/gcsweixin/shop/product/update',
+          url: '/shop/product/update',
           params: {
             productid: this.goodsup.id
           },

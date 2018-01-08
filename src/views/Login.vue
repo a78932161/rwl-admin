@@ -41,7 +41,7 @@
       };
     },
     created(){
-        console.log(getToken())
+        //console.log(getToken())
     },
     methods: {
       handleReset2() {
@@ -49,19 +49,17 @@
       },
       handleSubmit2() {
         axios({
-          url: "/gcsweixin/shop/login",
+          url: "/shop/login",
           headers: {'Content-Type': 'application/x-www-form-urlencoded'},
           method: "post",
           data:{ username: 'user',password:'user'}
         }).then(res=>{
-           //console.log(localStorage.token);
+           console.log(res);
            if(res.status===200){
               setToken(res.headers['x-auth-token'])
-
            }
 
         });
-
 
       }
     }

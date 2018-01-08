@@ -150,13 +150,13 @@
       getordero(){
         this.axios({
           method: 'post',
-          url: '/gcsweixin/shop/order/findbyproducttype',
+          url: '/shop/order/findbyproducttype',
           params: {
             producttype: 1,
 
           }
         }).then((res) => {
-          //console.log(res);
+          console.log(res);
           this.order=[];
           this.orderpage=[];
           res.data.data.forEach(value => {
@@ -214,12 +214,12 @@
         this.getordero();
       },
       excel(){
-        location.href='https://www.embracex.com/gcsweixin/shop/order/exportorder';
+        location.href='https://www.embracex.com /shop/order/exportorder';
       },
       tongji(){
         this.axios({
           method: 'post',
-          url: '/gcsweixin/shop/order/exportorder',
+          url: '/shop/order/exportorder',
         }).then((res)=>{
           console.log(res)
         });
