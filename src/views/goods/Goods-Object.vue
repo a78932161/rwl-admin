@@ -193,11 +193,12 @@
         this.$router.push({path: '/goadd'});
       },
       getgoods(){
-          getGoods1.then((res) => {
+        let data={type:1}
+          getGoods1(data).then((res) => {
+            console.log(res)
           this.goodspx = this.mppx(res.data.data);
           this.goods = [];
           this.goodspage = [];
-
           this.goodspx.forEach(value => {
 
             if(this.value1===null||this.value1===''){
@@ -262,7 +263,7 @@
           'sort': this.goodsup.sort,
           'type': this.goodsup.type,
         };
-        let id=this.goodsup.id;
+        let id={productid: this.goodsup.id};
         let data=this.tijiao
         sxGoods(id,data).then((res) => {
           this.$message({
@@ -290,7 +291,7 @@
           'sort': this.goodsup.sort,
           'type': this.goodsup.type,
         };
-        let id=this.goodsup.id;
+        let id={productid: this.goodsup.id};
         let data=this.tijiao;
         sxGoods(id,data).then((res) => {
           this.$message({

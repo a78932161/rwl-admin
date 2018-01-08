@@ -193,7 +193,8 @@
         this.$router.push({path: '/gsadd'});
       },
       getgoods(){
-        getGoods2.then((res) => {
+        let data={type:2}
+        getGoods2(data).then((res) => {
           //console.log(res.data.data);
           this.goodspx = this.mppx(res.data.data);
           this.goods = [];
@@ -263,7 +264,7 @@
           'sort': this.goodsup.sort,
           'type': this.goodsup.type,
         };
-        let id=this.goodsup.id;
+        let id={productid: this.goodsup.id};
         let data=this.tijiao;
         sxGoods(id,data).then((res) => {
           this.$message({
@@ -291,7 +292,7 @@
           'sort': this.goodsup.sort,
           'type': this.goodsup.type,
         };
-        let id=this.goodsup.id;
+        let id={productid: this.goodsup.id};
         let data=this.tijiao;
         sxGoods(id,data).then((res) => {
           this.$message({

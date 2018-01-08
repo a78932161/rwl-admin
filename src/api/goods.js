@@ -1,30 +1,24 @@
 import axios from '@/fetch'
 
-export function getGoods1() {
+export function getGoods1(data) {
   return axios({
     method: 'post',
     url: '/shop/product/findbytype',
-    params: {
-      type: 1,
-    }
+    params: data
   })
 }
-export function getGoods2() {
+export function getGoods2(data) {
   return axios({
     method: 'post',
     url: '/shop/product/findbytype',
-    params: {
-      type: 2,
-    }
+    params: data
   })
 }
 export function sxGoods(id,data) {
   return  axios({
     method: 'post',
     url: '/shop/product/update',
-    params: {
-      productid: id
-    },
+    params: id,
     data: data
   })
 }
@@ -36,13 +30,11 @@ export  function  goodsAdd(data) {
   })
 }
 
-export function getGoodsid(oupid) {
+export function getGoodsid(data) {
   return axios({
     method: 'post',
     url: '/shop/product/getproduct',
-    params: {
-      productid: oupid
-    }
+    params: data
   })
 }
 
@@ -50,9 +42,7 @@ export  function upGoods(oupid,data) {
   return axios({
     method: 'post',
     url: '/shop/product/update',
-    params: {
-      productid: oupid
-    },
+    params: oupid,
     data: data
   })
 }

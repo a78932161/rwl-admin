@@ -73,9 +73,9 @@
   </el-row>
 </template>
 <script>
-import {getGoodsid,upGoods} from "@/api/goods";
+  import {getGoodsid, upGoods} from "@/api/goods";
 
-export default {
+  export default {
     data() {
       let oldprice = (rule, value, callback) => {
         if (/^[+]{0,1}(\d+)$|^[+]{0,1}(\d+\.\d+)$/.test(value) === false) {
@@ -118,15 +118,15 @@ export default {
 
       return {
         imageUrl: '',
-        dialogImageUrl:'',
+        dialogImageUrl: '',
         dialogVisible: false,
         imgers: [],
-        imgay:[],
-        imgg:[],
+        imgay: [],
+        imgg: [],
         fileList: [],
         tijiao: {},
         goodsup: {},
-        tupian:[],
+        tupian: [],
         rules: {
           name: [
             {required: true, message: '请输入活动名称', trigger: 'blur'},
@@ -161,23 +161,24 @@ export default {
       };
     },
     methods: {
-      getgoods(){
-        this.oupid = this.$route.params.id
-          getGoodsid(this.oupid).then((res) => {
+      getgoods() {
+        this.oupid = this.$route.params.id;
+        let data = {productid: this.oupid};
+        getGoodsid(data).then((res) => {
           console.log(res);
           this.goodsup = res.data.data;
           this.fileList = this.tpjq(this.goodsup.image);
-          let img=this.goodsup.image;
-          let imgjq = img.substring(0,img.length);
+          let img = this.goodsup.image;
+          let imgjq = img.substring(0, img.length);
           let imgs = imgjq.split(',');
-          this.imgay=imgs;
+          this.imgay = imgs;
           console.log(this.imgay)
         })
 
       },
       submitForm() {
 
-        if(this.imgay.remove('')){
+        if (this.imgay.remove('')) {
           this.imgay.remove('');
         }
 
@@ -203,8 +204,9 @@ export default {
             'sort': this.goodsup.sort,
             'type': this.goodsup.type,
           };
-          let data=this.tijiao;
-          upGoods(this.oupid,data).then((res) => {
+          let data = this.tijiao;
+          let opid={productid: this.oupid};
+          upGoods(opid, data).then((res) => {
             this.$router.push({path: '/gservice'});
             this.$message({
               message: '恭喜你修改成功',
@@ -246,23 +248,23 @@ export default {
         return isJPG && isLt2M;
       },
       handleRemove(file, fileList) {
-        Array.prototype.remove = function(val) {
+        Array.prototype.remove = function (val) {
           let index = this.indexOf(val);
           if (index > -1) {
             this.splice(index, 1);
           }
         };
 
-        if(file.response===undefined && file.url!==''){
+        if (file.response === undefined && file.url !== '') {
           this.imgay.remove(file.url);
         }
-        else{
+        else {
           this.imgay.remove(file.response.data);
         }
 
         //console.log(this.imgay.toString());
       },
-      handlesuccess(file, fileList){
+      handlesuccess(file, fileList) {
         //console.log(file);
         this.imgay.push(file.data)
         console.log(this.imgay)
@@ -291,7 +293,7 @@ export default {
         return images;
       },
     },
-    mounted(){
+    mounted() {
       this.getgoods();
     }
   }

@@ -1,19 +1,19 @@
 import axios from '@/fetch'
 
-export function getOrder1() {
-  return  axios({
+export function getOrder1(data) {
+  return axios({
     method: 'post',
     url: '/shop/order/findbyproducttype',
-    params: {
-      producttype: 1,
-    }
-})}
-  export function getOrder2() {
-    return axios({
-      method: 'post',
-      url: '/shop/order/findbyproducttype',
-      params: {
-        producttype: 2
-      }
-    })
-  }
+    params: data
+
+  })
+}
+
+export function getOrder2(data) {
+  return axios({
+    method: 'post',
+    url: '/shop/order/findbyproducttype',
+    params: data
+
+  })
+}

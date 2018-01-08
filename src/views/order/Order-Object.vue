@@ -150,7 +150,8 @@
         return 'table1';
       },
       getordero(){
-        getOrder1.then((res) => {
+        let data={producttype:1};
+        getOrder1(data).then((res) => {
           console.log(res);
           this.order=[];
           this.orderpage=[];

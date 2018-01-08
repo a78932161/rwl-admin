@@ -152,8 +152,9 @@
         return 'warning-row';
       },
       getorders(){
-        getOrder2.then((res) => {
-          //console.log(res.data.data);
+        let data={producttype:2};
+        getOrder2(data).then((res) => {
+          console.log(res);
           this.order = [];
           this.orderpage = [];
           res.data.data.forEach(value => {
