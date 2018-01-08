@@ -61,7 +61,9 @@ service.interceptors.response.use(
 
       }
       else{
+      setTimeout(()=>{
         location.href=config.indexUrl;
+      },100);
       }
     }
     else if (request.responseURL === config.logoutApi && request.status === 200 ) {   /!*注销*!/

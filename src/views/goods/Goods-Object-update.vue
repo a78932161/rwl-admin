@@ -73,6 +73,7 @@
   </el-row>
 </template>
 <script>
+  import {getGoodsid,upGoods} from "@/api/goods";
 
   export default {
     data() {
@@ -162,13 +163,7 @@
     methods: {
       getgoods(){
         this.oupid = this.$route.params.id
-        this.axios({
-          method: 'post',
-          url: '/shop/product/getproduct',
-          params: {
-            productid: this.oupid
-          }
-        }).then((res) => {
+        getGoodsid(this.oupid).then((res) => {
           console.log(res);
           this.goodsup = res.data.data;
           this.fileList = this.tpjq(this.goodsup.image);
@@ -208,14 +203,8 @@
             'sort': this.goodsup.sort,
             'type': this.goodsup.type,
           };
-          this.axios({
-            method: 'post',
-            url: '/shop/product/update',
-            params: {
-              productid: this.oupid
-            },
-            data: this.tijiao
-          }).then((res) => {
+          let data=this.tijiao;
+          upGoods(this.oupid,data).then((res) => {
             this.$router.push({path: '/gobject'});
             this.$message({
               message: '恭喜你修改成功',

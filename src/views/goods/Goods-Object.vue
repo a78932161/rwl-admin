@@ -115,6 +115,8 @@
 <script>
   import ElCol from "element-ui/packages/col/src/col";
   import ElButton from "../../../node_modules/element-ui/packages/button/src/button";
+  import {getGoods1,sxGoods} from "@/api/goods";
+
   export default {
     components: {
       ElButton,
@@ -191,13 +193,7 @@
         this.$router.push({path: '/goadd'});
       },
       getgoods(){
-        this.axios({
-          method: 'post',
-          url: '/shop/product/findbytype',
-          params: {
-            type: 1,
-          }
-        }).then((res) => {
+          getGoods1.then((res) => {
           this.goodspx = this.mppx(res.data.data);
           this.goods = [];
           this.goodspage = [];
@@ -266,14 +262,9 @@
           'sort': this.goodsup.sort,
           'type': this.goodsup.type,
         };
-        this.axios({
-          method: 'post',
-          url: '/shop/product/update',
-          params: {
-            productid: this.goodsup.id
-          },
-          data: this.tijiao
-        }).then((res) => {
+        let id=this.goodsup.id;
+        let data=this.tijiao
+        sxGoods(id,data).then((res) => {
           this.$message({
             message: '上架成功',
             type: 'success'
@@ -299,14 +290,9 @@
           'sort': this.goodsup.sort,
           'type': this.goodsup.type,
         };
-        this.axios({
-          method: 'post',
-          url: '/shop/product/update',
-          params: {
-            productid: this.goodsup.id
-          },
-          data: this.tijiao
-        }).then((res) => {
+        let id=this.goodsup.id;
+        let data=this.tijiao;
+        sxGoods(id,data).then((res) => {
           this.$message({
             message: '下架成功',
             type: 'success'

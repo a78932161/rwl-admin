@@ -14,7 +14,8 @@
 </template>
 
 <script>
-  import {setToken,getToken} from '../auth'
+  import {setToken,getToken} from '@/auth'
+  import {loginApi} from "@/api/login";
 
   export default {
     data() {
@@ -37,12 +38,8 @@
     methods: {
 
       handleSubmit2() {
-       this.axios({
-          url: "http://rtest.rwlai.cn/shop/shop/login",
-          headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-          method: "post",
-          data:{ username: this.ruleForm2.username,password:this.ruleForm2.password}
-        }).then(res=>{
+        let data={ username: this.ruleForm2.username,password:this.ruleForm2.password};
+          loginApi(data).then(res=>{
            console.log(res);
            if(res.status===200){
               setToken(res.headers['x-auth-token'])

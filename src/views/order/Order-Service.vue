@@ -98,6 +98,7 @@
 
 <script>
   import ElRow from "element-ui/packages/row/src/row";
+  import {getOrder2} from "@/api/order";
 
   export default {
     components: {ElRow},
@@ -151,13 +152,7 @@
         return 'warning-row';
       },
       getorders(){
-        this.axios({
-          method: 'post',
-          url: '/shop/order/findbyproducttype',
-          params: {
-            producttype: 2
-          }
-        }).then((res) => {
+        getOrder2.then((res) => {
           //console.log(res.data.data);
           this.order = [];
           this.orderpage = [];

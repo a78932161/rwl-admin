@@ -75,6 +75,7 @@
   </el-row>
 </template>
 <script>
+  import {goodsAdd} from "@/api/goods";
 
   export default {
     data() {
@@ -201,11 +202,8 @@
             'sort':this.OaddForm.sort,
             'type': this.OaddForm.type,
           };
-          this.axios({
-            method: 'post',
-            url: '/shop/product/save',
-            data: this.tijiao,
-          }).then((res) => {
+          let data=this.tijiao;
+          goodsAdd(data).then((res) => {
             this.$router.push({path: '/gobject'});
             this.$message({
               message: '恭喜你添加成功',

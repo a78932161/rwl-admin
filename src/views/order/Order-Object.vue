@@ -98,6 +98,8 @@
 
 <script>
   import ElRow from "element-ui/packages/row/src/row";
+  import {getOrder1} from "@/api/order";
+
   export default {
     components: {ElRow},
     data () {
@@ -148,14 +150,7 @@
         return 'table1';
       },
       getordero(){
-        this.axios({
-          method: 'post',
-          url: '/shop/order/findbyproducttype',
-          params: {
-            producttype: 1,
-
-          }
-        }).then((res) => {
+        getOrder1.then((res) => {
           console.log(res);
           this.order=[];
           this.orderpage=[];
@@ -216,15 +211,7 @@
       excel(){
         location.href='https://www.embracex.com/shop/order/exportorder';
       },
-      tongji(){
-        this.axios({
-          method: 'post',
-          url: '/shop/order/exportorder',
-        }).then((res)=>{
-          console.log(res)
-        });
 
-      },
     },
     mounted(){
       this.getordero();

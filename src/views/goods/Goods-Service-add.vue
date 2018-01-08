@@ -75,8 +75,9 @@
   </el-row>
 </template>
 <script>
+import {goodsAdd} from "@/api/goods";
 
-  export default {
+export default {
     data() {
       let oldprice = (rule, value, callback) => {
         if (/^[+]{0,1}(\d+)$|^[+]{0,1}(\d+\.\d+)$/.test(value)===false ) {
@@ -200,11 +201,8 @@
             'sort':this.SaddForm.sort,
             'type': this.SaddForm.type,
           };
-          this.axios({
-            method: 'post',
-            url: '/shop/product/save',
-            data: this.tijiao,
-          }).then((res) => {
+          let data=this.tijiao;
+          goodsAdd(data).then((res) => {
             this.$router.push({path: '/gservice'});
             this.$message({
               message: '恭喜你添加成功',
