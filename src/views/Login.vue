@@ -1,14 +1,16 @@
 <template>
-  <el-form :model="ruleForm2" :rules="rules2" ref="ruleForm2" class="demo-ruleForm login-container">
+  <el-form :model="ruleForm2" :rules="rules2" ref="ruleForm2" label-position="left" label-width="0px" class="demo-ruleForm login-container">
     <h3 class="title">系统登录</h3>
-    <el-form-item prop="user">
-      <el-input type="text" v-model="ruleForm2.username"  placeholder="账号" auto-complete="off"></el-input>
+    <el-form-item prop="username">
+      <el-input type="text" v-model="ruleForm2.username" auto-complete="off" placeholder="账号"></el-input>
     </el-form-item>
-    <el-form-item prop="psd">
-      <el-input type="password" v-model="ruleForm2.password" placeholder="密码" auto-complete="off"></el-input>
+    <el-form-item prop="password">
+      <el-input type="password" v-model="ruleForm2.password" auto-complete="off" placeholder="密码"></el-input>
     </el-form-item>
+    <el-checkbox v-model="checked" checked class="remember">记住密码</el-checkbox>
     <el-form-item style="width:100%;">
-      <el-button type="primary" style="width:100%;" @click="handleSubmit2">登录</el-button>
+      <el-button type="primary" style="width:100%;" @click.native.prevent="handleSubmit2" :loading="logining">登录</el-button>
+      <!--<el-button @click.native.prevent="handleReset2">重置</el-button>-->
     </el-form-item>
   </el-form>
 </template>
@@ -20,19 +22,22 @@
   export default {
     data() {
       return {
+        logining: false,
         ruleForm2: {
           username: 'user',
           password: 'user'
         },
         rules2: {
-          user: [
+          username: [
             { required: true, message: '请输入账号', trigger: 'blur' },
+            //{ validator: validaePass }
           ],
-          psd: [
+          password: [
             { required: true, message: '请输入密码', trigger: 'blur' },
+            //{ validator: validaePass2 }
           ]
         },
-
+        checked: true
       };
     },
     methods: {

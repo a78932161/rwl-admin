@@ -9,6 +9,7 @@ let baseURL='http://rtest.rwlai.cn/shop';
 let URL=window.location.origin;
 
 
+
 let config={
   loginUrl:`${URL}/#/login`,  /*登陆地址*/
   loginApi:`${baseURL}/shop/login`,    /*登陆API*/
